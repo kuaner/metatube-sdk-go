@@ -12,10 +12,10 @@ func OpenaiTranslate(q, source, target, key string) (result string, err error) {
 		openai.WithFrom(source),
 	}
 	if withURL := os.Getenv("OPENAI_BASE_URL"); withURL != "" {
-		opt = append(opt, openai.WithUrl(os.Getenv("OPENAI_BASE_URL")))
+		opt = append(opt, openai.WithUrl(withURL))
 	}
 	if withModel := os.Getenv("OPENAI_MODEL"); withModel != "" {
-		opt = append(opt, openai.WithModel(os.Getenv("OPENAI_MODEL")))
+		opt = append(opt, openai.WithModel(withModel))
 	}
 	if withTemperature := os.Getenv("OPENAI_TEMPERATURE"); withTemperature != "" {
 		// convert string to float32
