@@ -5,5 +5,5 @@ import (
 )
 
 func OpenaiTranslate(q, source, target, key string) (result string, err error) {
-	return openai.Translate(q, target, key, openai.WithFrom(source), openai.WithMode("deepseek-chat"), openai.WithUrl("https://api.deepseek.com/v1"), openai.WithTemperature(1.1))
+	return openai.Translate(q, target, key, openai.WithFrom(source), openai.WithModel("deepseek-chat"), openai.WithUrl("https://api.deepseek.com/v1"), openai.WithTemperature(1.1))
 }
