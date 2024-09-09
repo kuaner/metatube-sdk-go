@@ -21,9 +21,9 @@ require (
 	github.com/nlnwa/whatwg-url v0.4.1
 	github.com/peterbourgon/ff/v3 v3.4.0
 	github.com/robertkrimen/otto v0.4.0
+	github.com/sashabaranov/go-openai v1.29.1
 	github.com/stretchr/testify v1.9.0
 	github.com/zijiren233/google-translator v1.0.1
-	github.com/zijiren233/openai-translator v0.2.1
 	go.eigsys.de/gin-cachecontrol/v2 v2.1.0
 	go.uber.org/atomic v1.11.0
 	golang.org/x/image v0.19.0
@@ -79,7 +79,6 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
-	github.com/sashabaranov/go-openai v1.28.2 // indirect
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect

@@ -1,9 +1,13 @@
 package openai
 
 import (
-	openai "github.com/zijiren233/openai-translator"
+	"context"
+	"fmt"
+	"os"
+	"strconv"
 
 	"github.com/metatube-community/metatube-sdk-go/translate"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 type Config struct {
@@ -11,7 +15,43 @@ type Config struct {
 }
 
 func Translate(q, source, target string, config Config) (result string, err error) {
-	return openai.Translate(q, target, config.APIKey, openai.WithFrom(source))
+	openaiConf := openai.DefaultConfig(config.APIKey)
+	if withURL := os.Getenv("OPENAI_BASE_URL"); withURL != "" {
+		openaiConf.BaseURL = withURL
+	}
+	msg := openai.ChatCompletionRequest{
+		Model:       openai.GPT4o,
+		Temperature: 1.0,
+		Messages: []openai.ChatCompletionMessage{
+			{
+				Role:    openai.ChatMessageRoleSystem,
+				Content: "You are a professional, authentic machine translation engine.",
+			},
+			{
+				Role: openai.ChatMessageRoleUser,
+				Content: fmt.Sprintf(`Translate the following source text to Simplified Chinese Language, Output translation directly without any additional text.
+Source Text: %s`, q),
+			},
+		},
+	}
+	if withModel := os.Getenv("OPENAI_MODEL"); withModel != "" {
+		msg.Model = withModel
+	}
+	if withTemperature := os.Getenv("OPENAI_TEMPERATURE"); withTemperature != "" {
+		// convert string to float32
+		temperature, err := strconv.ParseFloat(withTemperature, 32)
+		if err == nil {
+			msg.Temperature = float32(temperature)
+		}
+	}
+	resp, err := openai.NewClientWithConfig(openaiConf).CreateChatCompletion(
+		context.Background(),
+		msg,
+	)
+	if err != nil {
+		return "error", err
+	}
+	return resp.Choices[0].Message.Content, nil
 }
 
 func init() {
