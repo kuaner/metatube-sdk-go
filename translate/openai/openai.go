@@ -27,13 +27,8 @@ func (oa *OpenAI) Translate(q, source, target string) (result string, err error)
 		Temperature: 1.0,
 		Messages: []openai.ChatCompletionMessage{
 			{
-				Role:    openai.ChatMessageRoleSystem,
-				Content: "You are a professional, authentic machine translation engine.",
-			},
-			{
-				Role: openai.ChatMessageRoleUser,
-				Content: fmt.Sprintf(`将我发给你的内容翻译成简体中文，直接返回翻译后的结果，不要附加其他信息。
-%s`, q),
+				Role:    openai.ChatMessageRoleUser,
+				Content: fmt.Sprintf(`将我发给你的内容翻译成简体中文，直接返回翻译后的结果，不要附加其他信息。%s`, q),
 			},
 		},
 	}
